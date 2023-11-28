@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Html css Javascript</title>
+    <style>
+        .image_container{
+            text-align:center;
+            margin: 10px;
+        }
+
+        .highlight_border{
+            border:3px solid pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="gallery"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            const today = new Date().getDay();
+
+            fetch("https://jsonplaceholder.typicode.com/photos")
+            .then(response =>response.json())
+            .then(albums =>{
+                const idOddId = albums.id % 2 !== 0;
+                const idOddAlbumId = album.albumId % 2 !== 0;
+                const shouldHighlight = (album.albumId + album.id) % 2 === 0;
+                if((today ===0 && isOddId) ||
+                (today ===2 && idOddId) ||
+                (today === 4 && isOddId) ||
+                (today ===1 && isOddAlbumId)||
+                (today ===3 && isOddAlbumId)||
+                (today ===5 && isOddAlbumId)
+                ) {
+                    const container = document.createElement("div");
+                    container.classList.add("image-container");
+                    const paragraph = document.createElement("p");
+                    paragraph.textContext = `Album ID: ${album.albumId}, Image ID: ${album.id}`;
+                    container.appendChild(paragraph);
+
+                    const image = document.createElement("img");
+                    image.src = album.url;
+                    image.alt = `Album ${album.albumId} - Image ${album.id}`;
+                    image.style.margin = "10px";
+
+                    if(shouldHighlight){
+                        image.classList.add("highlight-border");
+                    }
+                    container.appendChild(image);
+                    galleryContainer.appendChild(container);
+                }
+            })
+            .catch(error =>console.error("Error fetching data:", error))
+        })
+    </script>
+</body>
+</html>
